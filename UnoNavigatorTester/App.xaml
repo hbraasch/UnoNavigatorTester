@@ -1,7 +1,8 @@
-<Application x:Class="UnoNavigatorTester.App"
+﻿<Application x:Class="UnoNavigatorTester.App"
        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-       xmlns:utum="using:Uno.Toolkit.UI.Material">
+       xmlns:utum="using:Uno.Toolkit.UI.Material"
+       xmlns:utu="using:Uno.Toolkit.UI">
 
   <Application.Resources>
     <ResourceDictionary>
@@ -22,8 +23,9 @@
       </ResourceDictionary.MergedDictionaries>
 
       <!-- Add resources here -->
+        <Style TargetType="utu:NavigationBar" BasedOn="{StaticResource Xam1Defau1tNavigationBar}" />
+        </ResourceDictionary>
 
-    </ResourceDictionary>
-  </Application.Resources>
+    </Application.Resources>
 
 </Application>

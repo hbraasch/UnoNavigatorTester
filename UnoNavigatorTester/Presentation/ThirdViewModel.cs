@@ -1,13 +1,13 @@
 
 
 namespace UnoNavigatorTester.Presentation;
-internal partial class ThirdViewModel : ObservableObject
+public partial class ThirdViewModel : ObservableObject
 {
-    internal class CommandData
+    public class CommandData
     {
         public string Message { get; set; }
     }
-    internal class ResponseData
+    public class ResponseData
     {
         public string Message { get; set; }
     }

@@ -13,7 +13,20 @@
         <RowDefinition Height="Auto" />
         <RowDefinition />
       </Grid.RowDefinitions>
-      <utu:NavigationBar Content="{Binding Title}" />
+            <utu:NavigationBar Content="{Binding Title}" MainCommandMode="Action">
+                <utu:NavigationBar.PrimaryCommands>
+                    <AppBarButton Label="Shop">
+                        <AppBarButton.Icon>
+                            <BitmapIcon UriSource="ms-appx:///Assets/Images/shop.png"/>
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+                </utu:NavigationBar.PrimaryCommands>
+
+                <utu:NavigationBar.SecondaryCommands>
+                    <AppBarButton Label="Go to second page" Command="{Binding GoToSecondPageCommand}"/>
+                    <AppBarButton Label="Go directly to third page" Command="{Binding GoDirectlyToThirdPageCommand}"/>
+                </utu:NavigationBar.SecondaryCommands>
+            </utu:NavigationBar>
 
             <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
         <TextBox Text="{Binding Name, Mode=TwoWay}"/>

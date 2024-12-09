@@ -1,3 +1,5 @@
+using Microsoft.UI.Dispatching;
+using Uno.Extensions.Navigation;
 using static UnoNavigatorTester.Presentation.ThirdViewModel;
 
 namespace UnoNavigatorTester.Presentation
@@ -11,17 +13,27 @@ namespace UnoNavigatorTester.Presentation
         [ObservableProperty]
         public string name;
 
-        public SecondViewModel(INavigator navigator)
+        public SecondViewModel(INavigator navigator, string command, ResponseData response)
         {
             this.navigator = navigator;
-            Title = "SecondPage";
-            Name = "Value set by SecondPage";
+
+            if (response != null)
+            {
+                Title = "SecondPage";
+                Name = "Value set by incorrectly instantiated viewmodel";
+            }
+            else
+            {
+                Title = "SecondPage";
+                Name = "Value set by SecondPage";
+            }
         }
 
         [RelayCommand]
         public async Task GoToThirdPage()
         {
             Name = "";
+
             var result = await navigator.GetDataAsync<ResponseData>(this, data: new CommandData { Message = "Data from SecondPage" });
             Name = result.Message;
         }

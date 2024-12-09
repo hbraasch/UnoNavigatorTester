@@ -5,6 +5,7 @@ namespace UnoNavigatorTester.Presentation;
 public partial class MainViewModel : ObservableObject
 {
     private INavigator navigator;
+    private readonly IDataService dataService;
 
     [ObservableProperty]
     private string? name;
@@ -13,16 +14,17 @@ public partial class MainViewModel : ObservableObject
         INavigator navigator)
     {
         this.navigator = navigator;
-        Title = "Main";
+        Title = App.MainPageData;
         Name = "Value set by MainPage";
     }
+
     public string? Title { get; }
 
 
     [RelayCommand]
     public async Task GoToSecondPage()
     {
-        await navigator.NavigateViewModelAsync<SecondViewModel>(this);
+        await navigator.NavigateViewModelAsync<SecondViewModel>(this, data: "Hi");
     }
 
     [RelayCommand]

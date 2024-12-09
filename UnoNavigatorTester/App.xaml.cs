@@ -1,3 +1,4 @@
+using Microsoft.UI.Dispatching;
 using Uno.Resizetizer;
 using static UnoNavigatorTester.Presentation.ThirdViewModel;
 
@@ -15,6 +16,8 @@ public partial class App : Application
 
     protected Window? MainWindow { get; private set; }
     protected IHost? Host { get; private set; }
+
+    public static string MainPageData;
 
     protected async override void OnLaunched(LaunchActivatedEventArgs args)
     {
@@ -60,10 +63,14 @@ public partial class App : Application
                 {
                     // TODO: Register your services
                     //services.AddSingleton<IMyService, MyService>();
+                    services.AddSingleton<IDataService, DataService>();
                 })
                 .UseNavigation(RegisterRoutes)
             );
         MainWindow = builder.Window;
+
+        var dataService = new DataService();
+        MainPageData = await dataService.GetDataAsync();
 
 #if DEBUG
         MainWindow.UseStudio();
@@ -71,6 +78,7 @@ public partial class App : Application
         MainWindow.SetWindowIcon();
 
         Host = await builder.NavigateAsync<Shell>();
+
     }
 
     private static void RegisterRoutes(IViewRegistry views, IRouteRegistry routes)
@@ -78,7 +86,7 @@ public partial class App : Application
         views.Register(
             new ViewMap(ViewModel: typeof(ShellViewModel)),
             new ViewMap<MainPage, MainViewModel>(),
-            new ViewMap<SecondPage, SecondViewModel>(),
+            new DataViewMap<SecondPage, SecondViewModel,string>(),
             new DataViewMap<ThirdPage, ThirdViewModel, CommandData>(),
             new ResultDataViewMap<ThirdPage, ThirdViewModel, ResponseData>()
         );
